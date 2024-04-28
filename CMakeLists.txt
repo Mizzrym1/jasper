@@ -423,7 +423,7 @@ if((DEFINED JAS_CROSSCOMPILING AND JAS_CROSSCOMPILING) OR
 	# will need to be set manually from the command line
 	# (e.g., using -DJAS_STDC_VERSION=YYYYMML) or by changing the line below.
 if(NOT JAS_WASM)
-	set(JAS_STDC_VERSION "0L" CACHE INTERNAL "The value of __STDC_VERSION__.")
+	set(JAS_STDC_VERSION "0L" CACHE STRING "The value of __STDC_VERSION__.")
 	if (JAS_STDC_VERSION STREQUAL "0L")
 		message(FATAL_ERROR
 		  "The value of __STDC_VERSION__ cannot be automatically determined "
