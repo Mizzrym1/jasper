@@ -10,12 +10,20 @@ function(jas_get_stdc_version status_out stdc_version_out)
 	endif()
 	set(bin_dir ${CMAKE_CURRENT_BINARY_DIR}/build/cmake/src)
 
-	try_run(print_stdc_run_status print_stdc_compile_status
-	    ${bin_dir}
-	    ${source_dir}/print_stdc.c
-	    COMPILE_OUTPUT_VARIABLE print_stdc_compile_output
-	    RUN_OUTPUT_VARIABLE stdc_version
-	)
+	if("${CMAKE_VERSION}" VERSION_LESS "3.25")
+		try_run(print_stdc_run_status print_stdc_compile_status
+			${bin_dir}
+			${source_dir}/print_stdc.c
+			COMPILE_OUTPUT_VARIABLE print_stdc_compile_output
+			RUN_OUTPUT_VARIABLE stdc_version
+		)
+	else()
+		try_run(print_stdc_run_status print_stdc_compile_status
+			SOURCES "${source_dir}/print_stdc.c"
+			COMPILE_OUTPUT_VARIABLE print_stdc_compile_output
+			RUN_OUTPUT_STDOUT_VARIABLE stdc_version
+		)
+	endif()
 
 	# For testing.
 	#set(stdc_version "199901L") # C99
